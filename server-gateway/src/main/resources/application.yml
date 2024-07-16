@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: server-gateway
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: user
+          uri: lb://user-service
+          predicates:
+            - Path=/users/**
+        - id: aqi
+          uri: lb://aqi-service
+          predicates:
+            - Path=/aqi/**
