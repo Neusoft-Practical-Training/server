@@ -12,7 +12,15 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/users/**
+            - Path=/admins/**
+            - Path=/supervisor/**
         - id: aqi
           uri: lb://aqi-service
           predicates:
             - Path=/aqi/**
+        - id: area
+          uri: lb://area-service
+          predicates:
+            - Path=/provinces/**
+            - Path=/cities/**
+            - Path=/grids/**

@@ -27,7 +27,7 @@ public class AdminController {
         return builder.code(1).message("指派任务成功").build();
     }
 
-    @PostMapping("/{id}}")
+    @PostMapping("/{id}")
     public Result getAdmin(@PathVariable Integer id) {
         Result.ResultBuilder builder = Result.builder();
         Admin admin = adminService.getById(id);
