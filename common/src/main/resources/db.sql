@@ -19,8 +19,8 @@ CREATE TABLE users
     remarks    TEXT,
     status     BOOLEAN,
     avatar     VARCHAR(255),
-    createTime DATETIME CURRENT_TIMESTAMP,
-    updateTime DATETIME CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    createTime DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updateTime DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- province
@@ -74,12 +74,12 @@ CREATE TABLE `aqis`
     `color`           varchar(255) NOT NULL,
     `health_impact`   varchar(255) NOT NULL,
     `suggestions`     varchar(255) NOT NULL,
-    `so2_min` double NOT NULL,
-    `so2_max` double NOT NULL,
-    `co_min` double NOT NULL,
-    `co_max` double NOT NULL,
-    `spm_min` double NOT NULL,
-    `spm_max` double NOT NULL,
+    `so2_min`         double       NOT NULL,
+    `so2_max`         double       NOT NULL,
+    `co_min`          double       NOT NULL,
+    `co_max`          double       NOT NULL,
+    `spm_min`         double       NOT NULL,
+    `spm_max`         double       NOT NULL,
     `remarks`         varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
@@ -133,9 +133,9 @@ CREATE TABLE `aqi_statistics`
     `so2_level`      int          NOT NULL,
     `co_level`       int          NOT NULL,
     `spm_level`      int          NOT NULL,
-    `so2_value` double NOT NULL,
-    `co_value` double NOT NULL,
-    `spm_value` double NOT NULL,
+    `so2_value`      double       NOT NULL,
+    `co_value`       double       NOT NULL,
+    `spm_value`      double       NOT NULL,
     `grid_id`        varchar(255) NOT NULL,
     `address`        varchar(255) NOT NULL,
     `confirm_date`   varchar(255) NOT NULL,
@@ -155,5 +155,5 @@ CREATE TABLE `grid_members`
     `city_id`     varchar(255) NOT NULL,
     `state`       int          NOT NULL,
     PRIMARY KEY (`id`),
-    KEY           `user_id_idx` (`user_id`)
+    KEY `user_id_idx` (`user_id`)
 );
