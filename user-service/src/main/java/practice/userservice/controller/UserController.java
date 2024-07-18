@@ -7,7 +7,6 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import practice.common.Result;
 import practice.entity.User;
-import practice.feignapi.client.UserClient;
 import practice.userservice.service.UserService;
 
 @RestController
@@ -16,7 +15,7 @@ import practice.userservice.service.UserService;
 public class UserController {
     @Autowired
     private UserService userService;
-    private final UserClient userClient;
+//    private final UserClient userClient;
 
     /**
      * login by login code and password
@@ -120,9 +119,9 @@ public class UserController {
         return Result.builder().code(Result.SUCCESS).message("修改用户信息成功").build();
     }
 
-    // TODO: This is a demo for testing openFeign client
-    @PostMapping("/test")
-    public Result test(@RequestBody User user) {
-        return userClient.login(user);
-    }
+//    // TODO: This is a demo for testing openFeign client
+//    @PostMapping("/test")
+//    public Result test(@RequestBody User user) {
+//        return userClient.login(user);
+//    }
 }

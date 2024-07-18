@@ -1,14 +1,13 @@
-package practice.userservice;
+package practice.feignapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//@EnableFeignClients(clients = UserClient.class)
 @SpringBootApplication
-public class UserServiceApplication {
+public class FeignApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
+        SpringApplication.run(FeignApiApplication.class, args);
     }
 
 }

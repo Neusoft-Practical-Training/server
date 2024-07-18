@@ -1,8 +1,10 @@
 package practice.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
+@TableName("aqi_feedbacks")
 public class AqiFeedback {
     private Integer id;
     private Integer afId;
