@@ -1,6 +1,7 @@
 package practice.areaservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import practice.areaservice.service.ProvinceService;
 import practice.common.Result;
@@ -14,17 +15,25 @@ public class ProvinceController {
     @Autowired
     private ProvinceService provinceService;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @GetMapping
     public Result getAllProvinces() {
         Result.ResultBuilder builder = Result.builder();
         List<Province> allProvinces;
-        try {
-            allProvinces = provinceService.getAllProvinces();
-        } catch (Exception e) {
-            return builder
-                    .code(Result.ERROR)
-                    .message("获取省份信息失败，请重试")
-                    .build();
+
+        allProvinces = (List<Province>) redisTemplate.opsForValue().get("all");
+        if (allProvinces == null || allProvinces.size() == 0) {
+            try {
+                allProvinces = provinceService.getAllProvinces();
+            } catch (Exception e) {
+                return builder
+                        .code(Result.ERROR)
+                        .message("获取省份信息失败，请重试")
+                        .build();
+            }
+            redisTemplate.opsForValue().set("all", allProvinces);
         }
         return builder
                 .code(Result.SUCCESS)
@@ -36,13 +45,17 @@ public class ProvinceController {
     @GetMapping("/{id}")
     public Result getProvinceById(@PathVariable Integer id) {
         Result.ResultBuilder builder = Result.builder();
-        Province province = provinceService.getProvinceById(id);
-        if (province != null) {
-            return builder
-                    .code(Result.SUCCESS)
-                    .data(province)
-                    .message("获取省份信息成功")
-                    .build();
+        Province province = (Province) redisTemplate.opsForValue().get(id);
+        if (province == null) {
+            province = provinceService.getProvinceById(id);
+            if (province != null) {
+                return builder
+                        .code(Result.SUCCESS)
+                        .data(province)
+                        .message("获取省份信息成功")
+                        .build();
+            }
+            redisTemplate.opsForValue().set(id, province);
         }
         return builder
                 .code(Result.ERROR)
